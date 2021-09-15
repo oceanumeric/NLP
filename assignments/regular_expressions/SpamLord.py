@@ -115,7 +115,7 @@ matching e-mails or phone numbers and compares them to the gold file
 if __name__ == '__main__':
     os.chdir(os.path.dirname(sys.argv[0]))
     if (len(sys.argv) == 1):
-        main('../data/dev', '../data/devGOLD')
+        main('./data/dev', './data/devGOLD')
     elif (len(sys.argv) == 3):
         main(sys.argv[1],sys.argv[2])
     else:
