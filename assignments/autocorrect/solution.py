@@ -56,6 +56,21 @@ def delete_letter(word, verbose=False):
     return deletes
 
 
+def switch_letter(word, verbose=False):
+    '''
+    Input: a string
+    Output: a list of possible strings by switching adjacent letters
+    '''
+    splits = [(word[:i], word[i:]) for i in range(len(word)+1)]
+    switch = [(l+r[1]+r[0]+r[2:]) for l, r in splits if len(r)>1]
+
+    if verbose: print(
+        f"Input word = {word} \n"
+        f"split_l = {splits} \nswitch_l = {switch}") 
+
+    return switch
+
+
 if __name__ == "__main__":
     path = os.getcwd()+'/assignments/autocorrect'
     os.chdir(path)
@@ -73,3 +88,5 @@ if __name__ == "__main__":
     print(
         f"Number of outputs of delete_letter('at') "
         f"is {len(delete_letter('at'))}")
+    switch_letter(word="eta", verbose=True)
+    print(f"Number of outputs of switch_letter('at') is {len(switch_letter('at'))}")
