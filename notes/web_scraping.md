@@ -55,6 +55,8 @@ Link: https://codepen.io/rcyou/pen/QEObEk
 Click me to display Date and Time.</button>
 
 <p id="demo"></p>
+
+<a href="https://www.w3schools.com">Visit W3Schools</a>
 ```
 
 ```css
