@@ -43,3 +43,36 @@ Second Page</a>.
 </p>
 Connection closed by foreign host.
 ```
+
+### HTML, CSS, Javascript
+
+Link: https://codepen.io/rcyou/pen/QEObEk
+
+```html
+<h2> Hello, world </h2>
+
+<button type="button">
+Click me to display Date and Time.</button>
+
+<p id="demo"></p>
+```
+
+```css
+h2 {
+    color:red
+}
+```
+
+```javascript
+$('button').on('click', function() {
+	document.getElementById('demo').innerHTML = Date();
+});
+```
+
+### Web Scraping
+
+
+### Regular Expression
+
+
+### Data Types 
