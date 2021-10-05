@@ -71,6 +71,42 @@ def switch_letter(word, verbose=False):
     return switch
 
 
+def replace_letter(word, verbose=False):
+    '''
+    Input: a string
+    Output: a list of possible strings by replacing one letter
+    '''
+    splits = []
+    replace = []
+    letters = 'abcdefghijklmnopqrstuvwxyz'
+    splits = [(word[:i], word[i:]) for i in range(len(word)+1)]
+    replace = [(l+x+r[1:]) for l, r in splits if r for x in letters]
+    replace_set = set(replace)
+    replace_set.discard(word)
+    replace = sorted(list(replace_set))
+
+    if verbose:
+        print(
+            f"Input word = {word} \n"
+            f"split_l = {splits} \nreplace_l {replace}")
+    
+    return replace
+
+
+def insert_letter(word, verbose=False):
+    splits = []
+    insert = []
+    letters = 'abcdefghijklmnopqrstuvwxyz'
+    splits = [(word[:i], word[i:]) for i in range(len(word)+1)]
+    insert = [(l+x+r) for l, r in splits for x in letters]
+
+    if verbose:
+        print(
+            f"Input word = {word} \n"
+            f"split_l = {splits} \nreplace_l {insert}")
+    
+    return insert
+
 if __name__ == "__main__":
     path = os.getcwd()+'/assignments/autocorrect'
     os.chdir(path)
@@ -90,3 +126,8 @@ if __name__ == "__main__":
         f"is {len(delete_letter('at'))}")
     switch_letter(word="eta", verbose=True)
     print(f"Number of outputs of switch_letter('at') is {len(switch_letter('at'))}")
+    replace_letter('can', verbose=True)
+    print(f"Number of outputs of switch_letter('at') is {len(switch_letter('at'))}")
+    insert_l = insert_letter('at', True)
+    print(f"Number of strings output by insert_letter('at') is {len(insert_l)}")
+    print(f"Number of outputs of insert_letter('at') is {len(insert_letter('at'))}")
