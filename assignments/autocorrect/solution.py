@@ -1,3 +1,4 @@
+from enum import EnumMeta
 import os
 import re
 from collections import Counter
@@ -221,6 +222,66 @@ def min_edit_distance(source, target, ins_cost = 1, del_cost = 1, rep_cost = 2):
     return cost_matrix, med
 
 
+def wagner_fischer(source, target):
+    '''
+    Input:
+        source: a string
+        target: a string
+    output:
+        cost_matrix: a matrix includes all editting cost from srouce to target
+        trace_matrix: a matrix that traces the where the minimum cost is from
+        med: the minimum edittting cost
+    '''
+    m = len(source)
+    n = len(target)
+    
+    cost_matrix = np.zeros((m+1, n+1), dtype=int)
+    cost_matrix[0,:] = range(n+1)
+    cost_matrix[:, 0] = range(m+1)
+    
+    trace_matrix = np.zeros((m+1, n+1), dtype=[('del', 'b'),
+                                               ('sub', 'b'),
+                                               ('ins', 'b')])
+    trace_matrix[1:, 0] = (1, 0, 0)
+    trace_matrix[0, 1:] = (0, 0, 1)
+    for i, s in enumerate(source, start=1):
+        for j, t in enumerate(target, start=1):
+            deletion = cost_matrix[i-1, j] + 1
+            insertion = cost_matrix[i, j-1] + 1
+            substitution = cost_matrix[i-1, j-1] + (0 if s == t else 2)
+            
+            mc = min(deletion, insertion, substitution)
+            
+            trace_matrix[i, j] = (deletion == mc, substitution == mc,
+                                  insertion == mc)
+            cost_matrix[i, j] = mc
+            
+    med = cost_matrix[m, n]
+    
+    return cost_matrix, trace_matrix, med
+
+
+def naive_backtrace(trace_matrix):
+    '''
+    Input:
+        trace_matrix: a matrix that traces the where the minimum cost is from
+    Output:
+        backtrace_idxs: a list that traces back the minimum edit distance
+    '''
+    i, j = trace_matrix.shape[0]-1, trace_matrix.shape[1]-1
+    backtrace_idxs = [(i, j)]
+    
+    while (i, j) != (0, 0):
+        if trace_matrix[i, j][1]:
+            i, j = i-1, j-1
+        if trace_matrix[i, j][0]:
+            i, j = i-1, j
+        if trace_matrix[i, j][2]:
+            i, j = i, j-1
+        backtrace_idxs.append((i, j))
+    return backtrace_idxs
+    
+            
 if __name__ == "__main__":
     path = os.getcwd()+'/assignments/autocorrect'
     os.chdir(path)
@@ -251,9 +312,9 @@ if __name__ == "__main__":
     df = pd.DataFrame(matrix, index=idx, columns= cols)
     print(df)
     print("-------------------------------------------------------------------")
-    source = 'eer'
-    target = 'near'
-    matrix, min_edits = min_edit_distance(source, target)
+    source = 'spell'
+    target = 'hello'
+    matrix, trace, min_edits = wagner_fischer(source, target)
     print("minimum edits: ",min_edits, "\n")
     idx = list(source)
     idx.insert(0, '#')
@@ -261,9 +322,5 @@ if __name__ == "__main__":
     cols.insert(0, '#')
     df = pd.DataFrame(matrix, index=idx, columns= cols)
     print(df)
-    print("-------------------------------------------------------------------")
-    source = "eer"
-    targets = edit_two_letters(source,allow_switches = False) #disable switches since min_edit_distance does not include them
-    for t in targets:
-        _, min_edits = min_edit_distance(source, t,1,1,1)  # set ins, del, sub costs all to one
-        if min_edits != 2 and min_edits != 1: print(source, t, min_edits)
+    print(trace)
+    print(naive_backtrace(trace))
