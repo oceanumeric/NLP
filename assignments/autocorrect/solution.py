@@ -187,6 +187,40 @@ def get_corrections(word, probs, vocab, n=2, verbose=False):
     return n_best
 
 
+def min_edit_distance(source, target, ins_cost = 1, del_cost = 1, rep_cost = 2):
+    '''
+    Input: 
+        source: a string corresponding to the string you are starting with
+        target: a string corresponding to the string you want to end with
+        ins_cost: an integer setting the insert cost
+        del_cost: an integer setting the delete cost
+        rep_cost: an integer setting the replace cost
+    Output:
+        D: a matrix of len(source)+1 by len(target)+1 containing minimum edit distances
+        med: the minimum edit distance (med) required to convert the source string to the target
+    '''
+    m = len(source)
+    n = len(target)
+    cost_matrix = np.zeros((m+1, n+1), dtype=int)
+    
+    for row in range(m+1):
+        cost_matrix[row, 0] = row
+    for column in range(n+1):
+        cost_matrix[0, column] = column
+        
+    for r in range(1, m+1):
+        for c in range(1, n+1):
+            r_cost = rep_cost
+            if source[r-1] == target[c-1]:
+                r_cost = 0 
+            cost_matrix[r, c] = min(cost_matrix[r-1, c]+del_cost, 
+                                    cost_matrix[r, c-1]+ins_cost,
+                                    cost_matrix[r-1, c-1]+r_cost)
+    med = cost_matrix[m, n]
+    
+    return cost_matrix, med
+
+
 if __name__ == "__main__":
     path = os.getcwd()+'/assignments/autocorrect'
     os.chdir(path)
@@ -207,3 +241,29 @@ if __name__ == "__main__":
 
     # CODE REVIEW COMMENT: using "tmp_corrections" insteads of "cors". "cors" is not defined
     print(f"data type of corrections {type(tmp_corrections)}")
+    print("-------------------------------------------------------------------")
+    source =  'play'
+    target = 'stay'
+    matrix, min_edits = min_edit_distance(source, target)
+    print("minimum edits: ",min_edits, "\n")
+    idx = list('#' + source)
+    cols = list('#' + target)
+    df = pd.DataFrame(matrix, index=idx, columns= cols)
+    print(df)
+    print("-------------------------------------------------------------------")
+    source = 'eer'
+    target = 'near'
+    matrix, min_edits = min_edit_distance(source, target)
+    print("minimum edits: ",min_edits, "\n")
+    idx = list(source)
+    idx.insert(0, '#')
+    cols = list(target)
+    cols.insert(0, '#')
+    df = pd.DataFrame(matrix, index=idx, columns= cols)
+    print(df)
+    print("-------------------------------------------------------------------")
+    source = "eer"
+    targets = edit_two_letters(source,allow_switches = False) #disable switches since min_edit_distance does not include them
+    for t in targets:
+        _, min_edits = min_edit_distance(source, t,1,1,1)  # set ins, del, sub costs all to one
+        if min_edits != 2 and min_edits != 1: print(source, t, min_edits)
