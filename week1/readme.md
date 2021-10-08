@@ -135,6 +135,9 @@ SoupObject.find('name', _class='class_attribute', id='id_attribute')
 Uni Link https://search.sjtu.edu.cn/search-news/search
 
 
+`r.text` is the content of the response in Unicode, and `r.content` is the 
+content of the response in bytes. When you create the bs object, you need to
+pass the bytes content as the input. 
 
 
 
