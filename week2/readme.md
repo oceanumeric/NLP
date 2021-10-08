@@ -1,0 +1,1 @@
+# this is my notes for week 2
