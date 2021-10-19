@@ -169,8 +169,8 @@ def _make_table(source, target, cost_matrix, trace_matrix, trace_indexs):
 
 
 if __name__ == "__main__":
-    source = 'spell'
-    target = 'hello'
+    source = 'intention'  # spell
+    target = 'execution'  # hello
     min_edits, cost_matrix, trace = wagner_fischer(source, target)
     print("minimum edits: ", min_edits)
     print('cost matrix: \n', cost_matrix)
