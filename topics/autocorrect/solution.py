@@ -283,7 +283,7 @@ def naive_backtrace(trace_matrix):
     
             
 if __name__ == "__main__":
-    path = os.getcwd()+'/assignments/autocorrect'
+    path = os.getcwd()+'/topics/autocorrect'
     os.chdir(path)
     word_list = process_data('./data/shakespeare.txt')
     vocab = set(word_list)
