@@ -1,7 +1,8 @@
 /*
 sparse_cosine_sim function is to calculate the cosine similarity 
 given two sparse matrices A and B (in the CSR format)
-we will calculate A @ B.T by iterative rows of A 
+we will calculate A @ B by iterative rows of A 
+NOTE: assume B.shape = (k, N)
 @ ymwdalex (github)
 @ oceanumeric (github)
 */
@@ -44,9 +45,9 @@ void sparse_cosine_sim(
                         double C_values[]  // value arrays of result matrix C 
                         )
 {
-    // create a vector to trace columns of B (N_col)
+    // create a vector to trace non zeros of dot_prod
     // it will work like a linked list
-    std::vector<int> trace_B(N_col, -1);  // initial values = -1
+    std::vector<int> trace_nonzeros(N_col, -1);  // initial values = -1
     // vector for the dot product of M_row_i and N_col_j
     std::vector<double> dot_prod(N_col, 0);  
     std::vector<top_n_cos> top_n_cos_values; 
@@ -57,17 +58,67 @@ void sparse_cosine_sim(
     // initialize the first value of c_row_idx[]
     C_row_idx[0] = 0;
 
+    // calculate A[i, :] @ B 
     for (int i = 0; i < M_row; i++) {
         // initialize the head of linked list - trace_B
         int head = -2;
-        int length = 0; 
+        int num_of_nonzeros = 0; 
         // get the index for column indexes array
         // remember row pointer array stores the index of column arrays
         int cj_start = A_row_idx[i];
         int cj_end = A_row_idx[i+1];
 
         for (int jj = cj_start; jj < cj_end; jj++){
-            
+            // column index of A 
+            int A_j = A_column_idx[jj];
+            // len(A_values) = len(A_column_idx) 
+            double A_value = A_values[jj];
+            // since we are doing A[i, :] @ B: (M, k) (k, N)
+            // B.shape = (k, N)
+            // calculate the corresponding rows of B 
+            // NOTE: we do not need to calculate other rows of B 
+            // because entries except for A_j are all zeros
+            int k_start = B_row_idx[A_j];
+            int k_end = B_row_idx[A_j+1];
+
+            for (int kk = k_start; kk < k_end; kk++) {
+                // get the column index of B
+                int B_j = B_column_idx[kk];
+                // length(B_column_idx) = len(B_values)
+                double B_value = B_values[kk]; 
+                // calculate the dot product (sum of A_value * B_value)
+                dot_prod[B_j] += A_value * B_value; 
+
+                // trace the non zeros entries of dot_prod with trace_B
+                if (trace_nonzeros[B_j] == -1) {
+                    // update the linked list 
+                    // the head of linked list is -2 then it points to B_j
+                    trace_nonzeros[B_j] = head;
+                    // next value points to B_j
+                    head = B_j;
+                    num_non_zeros++;  
+                }
+            }
+        }
+
+        // visit all non zero entries of dot_prod 
+
+        for (int i = 0; i < num_non_zeros; i++){
+            // no one needs a cosine similarities < 0.5 
+            // last element of non-zeros 
+            if (dot_prod[head] > lower_bound) {
+                // append the nonzero elements
+                top_n_cos topn; 
+                topn.index = head;
+                topn.value = dot_prod[head]; 
+                top_n_cos_values.push_back(topn); 
+            }
+
+            int temp = head;
+            head = trace_nonzeros[head];  // iterate over columns 
+
+            trace_nonzeros[temp] = -1; // clear arrays
+            dot_prod[temp] = 0; // clear arrays because < lower_bound
         }
 
     } 
