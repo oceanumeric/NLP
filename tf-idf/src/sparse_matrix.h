@@ -27,8 +27,7 @@ extern void sparse_cosine_sim(
                 int B_row_idx[],
                 int B_column_idx[],
                 double B_values[],  // value arrays of B
-                // top n cosine similarities 
-                int ntop,
+                int n,  // top n cosine similarities 
                 // lower bound of cosine similarities
                 // if cos_sim < lower_bound? 0 : cos_sim 
                 double lower_bound,
