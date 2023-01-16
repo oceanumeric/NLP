@@ -92,9 +92,10 @@ void sparse_cosine_sim(
                 // trace the non zeros entries of dot_prod with trace_B
                 if (trace_nonzeros[B_j] == -1) {
                     // update the linked list 
-                    // the head of linked list is -2 then it points to B_j
+                    // the head of linked list is -2
                     trace_nonzeros[B_j] = head;
-                    // next value points to B_j
+                    // next value will remember where it comes from
+                    // in terms of inext of trace_nonzeros 
                     head = B_j;
                     num_non_zeros++;  
                 }
@@ -115,11 +116,46 @@ void sparse_cosine_sim(
             }
 
             int temp = head;
+            // goes up to the previous value 
             head = trace_nonzeros[head];  // iterate over columns 
 
             trace_nonzeros[temp] = -1; // clear arrays
-            dot_prod[temp] = 0; // clear arrays because < lower_bound
+            dot_prod[temp] = 0; // assign the result = 0 because < lower_bound
         }
+
+        // Now, we will select the topn candicates
+        int len = (int)top_n_cos_values.size();
+
+        if (len > n) {
+            std::partial_sort(
+                top_n_cos_values.begin(), 
+                top_n_cos_values.begin()+n,
+                top_n_cos_values.end(),
+                top_n_cos_compare); 
+                // update the lenght of result vector 
+                len = n; 
+        } else {
+            std::sort(
+                top_n_cos_values.begin(),
+                top_n_cos_values.end(),
+                top_n_cos_compare
+            );
+        }
+
+        // update result matrix C based on sorted top_n_cos_values
+
+        for (int cj = 0; cj < len; cj++) {
+            C_column_idx[num_of_nonzeros] = top_n_cos_values[cj].index;
+            C_values[num_non_zeros] = top_n_cos_values[cj].value; 
+            num_non_zeros++; 
+        }
+
+        // clear top_n_cos_values for the next row
+        top_n_cos_values.clear(); 
+
+        // update the row index for sparse matrix C
+
+        C_row_idx[i+1] = num_non_zeros; 
 
     } 
 }
