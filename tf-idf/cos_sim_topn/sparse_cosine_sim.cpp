@@ -15,14 +15,14 @@ NOTE: assume B.shape = (k, N)
 
 
 // create a struct (mini class) for top-n cosine similarities
-struct top_n_cos
+struct candidate
 {
     int index;
     double value; 
 };
 
 // a helper function to compare the value of top_n_cos
-bool top_n_cos_compare(top_n_cos ci, top_n_cos cj) {
+bool top_n_cos_compare(candidate ci, candidate cj) {
     return (ci.value > cj.value);
 }; 
 
@@ -50,10 +50,10 @@ void sparse_cosine_sim(
     std::vector<int> trace_nonzeros(N_col, -1);  // initial values = -1
     // vector for the dot product of M_row_i and N_col_j
     std::vector<double> dot_prod(N_col, 0);  
-    std::vector<top_n_cos> top_n_cos_values; 
+    std::vector<candidate> top_candidates; 
 
-    // number of non zero elements in row i
-    int num_non_zeros = 0;   
+    // index counter for C 
+    int cidx = 0;   
 
     // initialize the first value of c_row_idx[]
     C_row_idx[0] = 0;
@@ -97,22 +97,22 @@ void sparse_cosine_sim(
                     // next value will remember where it comes from
                     // in terms of inext of trace_nonzeros 
                     head = B_j;
-                    num_non_zeros++;  
+                    num_of_nonzeros++;
                 }
             }
         }
 
         // visit all non zero entries of dot_prod 
-
-        for (int i = 0; i < num_non_zeros; i++){
+        // do not use i or j index 
+        for (int dd = 0; dd < num_of_nonzeros; dd++){
             // no one needs a cosine similarities < 0.5 
             // last element of non-zeros 
             if (dot_prod[head] > lower_bound) {
                 // append the nonzero elements
-                top_n_cos topn; 
+                candidate topn; 
                 topn.index = head;
                 topn.value = dot_prod[head]; 
-                top_n_cos_values.push_back(topn); 
+                top_candidates.push_back(topn); 
             }
 
             int temp = head;
@@ -124,20 +124,20 @@ void sparse_cosine_sim(
         }
 
         // Now, we will select the topn candicates
-        int len = (int)top_n_cos_values.size();
+        int len = (int)top_candidates.size();
 
         if (len > n) {
             std::partial_sort(
-                top_n_cos_values.begin(), 
-                top_n_cos_values.begin()+n,
-                top_n_cos_values.end(),
+                top_candidates.begin(), 
+                top_candidates.begin()+n,
+                top_candidates.end(),
                 top_n_cos_compare); 
                 // update the lenght of result vector 
                 len = n; 
         } else {
             std::sort(
-                top_n_cos_values.begin(),
-                top_n_cos_values.end(),
+                top_candidates.begin(),
+                top_candidates.end(),
                 top_n_cos_compare
             );
         }
@@ -145,19 +145,17 @@ void sparse_cosine_sim(
         // update result matrix C based on sorted top_n_cos_values
 
         for (int cj = 0; cj < len; cj++) {
-            C_column_idx[num_of_nonzeros] = top_n_cos_values[cj].index;
-            C_values[num_non_zeros] = top_n_cos_values[cj].value; 
-            num_non_zeros++; 
+            C_column_idx[cidx] = top_candidates[cj].index;
+            C_values[cidx] = top_candidates[cj].value; 
+            cidx++; 
         }
 
         // clear top_n_cos_values for the next row
-        top_n_cos_values.clear(); 
+        top_candidates.clear(); 
 
         // update the row index for sparse matrix C
 
-        C_row_idx[i+1] = num_non_zeros; 
+        C_row_idx[i+1] = cidx; 
 
     } 
 }
-
-        

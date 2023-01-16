@@ -10,6 +10,7 @@ cimport numpy as np
 # import cpp header file 
 # (.pxy should be in the same directory with header file)
 cdef extern from "sparse_matrix.h":
+    
     void sparse_cosine_sim(
                 int M_row,  
                 int N_col,
@@ -39,7 +40,7 @@ cpdef cos_sim_topn(
         double lower_bound,
         np.ndarray[int, ndim=1] c_row_idx,
         np.ndarray[int, ndim=1] c_column_idx,
-        np.ndarray[double, ndim=1] c_values,
+        np.ndarray[double, ndim=1] c_values
     ):
     """
     Cypthon glue function to call sparse_cosine_sim function written

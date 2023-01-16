@@ -1834,7 +1834,7 @@ static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 /* Late includes */
 
-/* "cos_sim_topn/cos_sim_topn.pyx":29
+/* "cos_sim_topn/cos_sim_topn.pyx":30
  *                 )
  * 
  * cpdef cos_sim_topn(             # <<<<<<<<<<<<<<
@@ -1917,51 +1917,51 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   __pyx_pybuffernd_c_values.rcbuffer = &__pyx_pybuffer_c_values;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_row_idx.diminfo[0].strides = __pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_row_idx.diminfo[0].shape = __pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_column_idx.diminfo[0].strides = __pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_column_idx.diminfo[0].shape = __pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_values.diminfo[0].strides = __pyx_pybuffernd_a_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_values.diminfo[0].shape = __pyx_pybuffernd_a_values.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_row_idx.diminfo[0].strides = __pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_row_idx.diminfo[0].shape = __pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_column_idx.diminfo[0].strides = __pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_column_idx.diminfo[0].shape = __pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_values.diminfo[0].strides = __pyx_pybuffernd_b_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_values.diminfo[0].shape = __pyx_pybuffernd_b_values.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_row_idx.diminfo[0].strides = __pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_row_idx.diminfo[0].shape = __pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_column_idx.diminfo[0].strides = __pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_column_idx.diminfo[0].shape = __pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_values.diminfo[0].strides = __pyx_pybuffernd_c_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_values.diminfo[0].shape = __pyx_pybuffernd_c_values.rcbuffer->pybuffer.shape[0];
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":49
+  /* "cos_sim_topn/cos_sim_topn.pyx":50
  *     """
  *     # lin the pointer
  *     cdef int* Arow = &a_row_idx[0]             # <<<<<<<<<<<<<<
@@ -1976,11 +1976,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_a_row_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 49, __pyx_L1_error)
+    __PYX_ERR(0, 50, __pyx_L1_error)
   }
   __pyx_v_Arow = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_a_row_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":50
+  /* "cos_sim_topn/cos_sim_topn.pyx":51
  *     # lin the pointer
  *     cdef int* Arow = &a_row_idx[0]
  *     cdef int* Acolumn = &a_column_idx[0]             # <<<<<<<<<<<<<<
@@ -1995,11 +1995,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_a_column_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 50, __pyx_L1_error)
+    __PYX_ERR(0, 51, __pyx_L1_error)
   }
   __pyx_v_Acolumn = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_a_column_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":51
+  /* "cos_sim_topn/cos_sim_topn.pyx":52
  *     cdef int* Arow = &a_row_idx[0]
  *     cdef int* Acolumn = &a_column_idx[0]
  *     cdef double* Avalues = &a_values[0]             # <<<<<<<<<<<<<<
@@ -2014,11 +2014,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_a_values.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 51, __pyx_L1_error)
+    __PYX_ERR(0, 52, __pyx_L1_error)
   }
   __pyx_v_Avalues = (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_a_values.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_a_values.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":52
+  /* "cos_sim_topn/cos_sim_topn.pyx":53
  *     cdef int* Acolumn = &a_column_idx[0]
  *     cdef double* Avalues = &a_values[0]
  *     cdef int* Brow = &b_row_idx[0]             # <<<<<<<<<<<<<<
@@ -2033,11 +2033,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_b_row_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 52, __pyx_L1_error)
+    __PYX_ERR(0, 53, __pyx_L1_error)
   }
   __pyx_v_Brow = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_b_row_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":53
+  /* "cos_sim_topn/cos_sim_topn.pyx":54
  *     cdef double* Avalues = &a_values[0]
  *     cdef int* Brow = &b_row_idx[0]
  *     cdef int* Bcolumn = &b_column_idx[0]             # <<<<<<<<<<<<<<
@@ -2052,11 +2052,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_b_column_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 53, __pyx_L1_error)
+    __PYX_ERR(0, 54, __pyx_L1_error)
   }
   __pyx_v_Bcolumn = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_b_column_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":54
+  /* "cos_sim_topn/cos_sim_topn.pyx":55
  *     cdef int* Brow = &b_row_idx[0]
  *     cdef int* Bcolumn = &b_column_idx[0]
  *     cdef double* Bvalues = &b_values[0]             # <<<<<<<<<<<<<<
@@ -2071,11 +2071,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_b_values.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 54, __pyx_L1_error)
+    __PYX_ERR(0, 55, __pyx_L1_error)
   }
   __pyx_v_Bvalues = (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_b_values.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_b_values.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":55
+  /* "cos_sim_topn/cos_sim_topn.pyx":56
  *     cdef int* Bcolumn = &b_column_idx[0]
  *     cdef double* Bvalues = &b_values[0]
  *     cdef int* Crow = &c_row_idx[0]             # <<<<<<<<<<<<<<
@@ -2090,11 +2090,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_c_row_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 55, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   }
   __pyx_v_Crow = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_c_row_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":56
+  /* "cos_sim_topn/cos_sim_topn.pyx":57
  *     cdef double* Bvalues = &b_values[0]
  *     cdef int* Crow = &c_row_idx[0]
  *     cdef int* Ccolumn = &c_column_idx[0]             # <<<<<<<<<<<<<<
@@ -2109,11 +2109,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_c_column_idx.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 56, __pyx_L1_error)
+    __PYX_ERR(0, 57, __pyx_L1_error)
   }
   __pyx_v_Ccolumn = (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_c_column_idx.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":57
+  /* "cos_sim_topn/cos_sim_topn.pyx":58
  *     cdef int* Crow = &c_row_idx[0]
  *     cdef int* Ccolumn = &c_column_idx[0]
  *     cdef double* Cvalues = &c_values[0]             # <<<<<<<<<<<<<<
@@ -2128,11 +2128,11 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_c_values.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 57, __pyx_L1_error)
+    __PYX_ERR(0, 58, __pyx_L1_error)
   }
   __pyx_v_Cvalues = (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_c_values.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_c_values.diminfo[0].strides)));
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":59
+  /* "cos_sim_topn/cos_sim_topn.pyx":60
  *     cdef double* Cvalues = &c_values[0]
  * 
  *     sparse_cosine_sim(             # <<<<<<<<<<<<<<
@@ -2141,7 +2141,7 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
  */
   sparse_cosine_sim(__pyx_v_M_row, __pyx_v_N_col, __pyx_v_Arow, __pyx_v_Acolumn, __pyx_v_Avalues, __pyx_v_Brow, __pyx_v_Bcolumn, __pyx_v_Bvalues, __pyx_v_top_n, __pyx_v_lower_bound, __pyx_v_Crow, __pyx_v_Ccolumn, __pyx_v_Cvalues);
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":66
+  /* "cos_sim_topn/cos_sim_topn.pyx":67
  *         Crow, Ccolumn, Cvalues)
  * 
  *     return             # <<<<<<<<<<<<<<
@@ -2150,7 +2150,7 @@ static PyObject *__pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(int __pyx_v_
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "cos_sim_topn/cos_sim_topn.pyx":29
+  /* "cos_sim_topn/cos_sim_topn.pyx":30
  *                 )
  * 
  * cpdef cos_sim_topn(             # <<<<<<<<<<<<<<
@@ -2261,77 +2261,77 @@ static PyObject *__pyx_pw_12cos_sim_topn_12cos_sim_topn_1cos_sim_topn(PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_N_col)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 1); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 1); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a_row_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 2); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 2); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a_column_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 3); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 3); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a_values)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 4); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 4); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b_row_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 5); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 5); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b_column_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 6); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 6); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b_values)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 7); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 7); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_top_n)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 8); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 8); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
         if (likely((values[9] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_lower_bound)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 9); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 9); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 10:
         if (likely((values[10] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_c_row_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 10); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 10); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 11:
         if (likely((values[11] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_c_column_idx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 11); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 11); __PYX_ERR(0, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 12:
         if (likely((values[12] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_c_values)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 12); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, 12); __PYX_ERR(0, 30, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cos_sim_topn") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cos_sim_topn") < 0)) __PYX_ERR(0, 30, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 13) {
       goto __pyx_L5_argtuple_error;
@@ -2350,37 +2350,37 @@ static PyObject *__pyx_pw_12cos_sim_topn_12cos_sim_topn_1cos_sim_topn(PyObject *
       values[11] = PyTuple_GET_ITEM(__pyx_args, 11);
       values[12] = PyTuple_GET_ITEM(__pyx_args, 12);
     }
-    __pyx_v_M_row = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_M_row == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L3_error)
-    __pyx_v_N_col = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_N_col == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+    __pyx_v_M_row = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_M_row == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+    __pyx_v_N_col = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_N_col == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
     __pyx_v_a_row_idx = ((PyArrayObject *)values[2]);
     __pyx_v_a_column_idx = ((PyArrayObject *)values[3]);
     __pyx_v_a_values = ((PyArrayObject *)values[4]);
     __pyx_v_b_row_idx = ((PyArrayObject *)values[5]);
     __pyx_v_b_column_idx = ((PyArrayObject *)values[6]);
     __pyx_v_b_values = ((PyArrayObject *)values[7]);
-    __pyx_v_top_n = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_top_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L3_error)
-    __pyx_v_lower_bound = __pyx_PyFloat_AsDouble(values[9]); if (unlikely((__pyx_v_lower_bound == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+    __pyx_v_top_n = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_top_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+    __pyx_v_lower_bound = __pyx_PyFloat_AsDouble(values[9]); if (unlikely((__pyx_v_lower_bound == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L3_error)
     __pyx_v_c_row_idx = ((PyArrayObject *)values[10]);
     __pyx_v_c_column_idx = ((PyArrayObject *)values[11]);
     __pyx_v_c_values = ((PyArrayObject *)values[12]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("cos_sim_topn", 1, 13, 13, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 30, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cos_sim_topn.cos_sim_topn.cos_sim_topn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_row_idx), __pyx_ptype_5numpy_ndarray, 1, "a_row_idx", 0))) __PYX_ERR(0, 32, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_column_idx), __pyx_ptype_5numpy_ndarray, 1, "a_column_idx", 0))) __PYX_ERR(0, 33, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_values), __pyx_ptype_5numpy_ndarray, 1, "a_values", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_row_idx), __pyx_ptype_5numpy_ndarray, 1, "b_row_idx", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_column_idx), __pyx_ptype_5numpy_ndarray, 1, "b_column_idx", 0))) __PYX_ERR(0, 36, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_values), __pyx_ptype_5numpy_ndarray, 1, "b_values", 0))) __PYX_ERR(0, 37, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_row_idx), __pyx_ptype_5numpy_ndarray, 1, "c_row_idx", 0))) __PYX_ERR(0, 40, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_column_idx), __pyx_ptype_5numpy_ndarray, 1, "c_column_idx", 0))) __PYX_ERR(0, 41, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_values), __pyx_ptype_5numpy_ndarray, 1, "c_values", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_row_idx), __pyx_ptype_5numpy_ndarray, 1, "a_row_idx", 0))) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_column_idx), __pyx_ptype_5numpy_ndarray, 1, "a_column_idx", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_a_values), __pyx_ptype_5numpy_ndarray, 1, "a_values", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_row_idx), __pyx_ptype_5numpy_ndarray, 1, "b_row_idx", 0))) __PYX_ERR(0, 36, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_column_idx), __pyx_ptype_5numpy_ndarray, 1, "b_column_idx", 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b_values), __pyx_ptype_5numpy_ndarray, 1, "b_values", 0))) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_row_idx), __pyx_ptype_5numpy_ndarray, 1, "c_row_idx", 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_column_idx), __pyx_ptype_5numpy_ndarray, 1, "c_column_idx", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c_values), __pyx_ptype_5numpy_ndarray, 1, "c_values", 0))) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_r = __pyx_pf_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(__pyx_self, __pyx_v_M_row, __pyx_v_N_col, __pyx_v_a_row_idx, __pyx_v_a_column_idx, __pyx_v_a_values, __pyx_v_b_row_idx, __pyx_v_b_column_idx, __pyx_v_b_values, __pyx_v_top_n, __pyx_v_lower_bound, __pyx_v_c_row_idx, __pyx_v_c_column_idx, __pyx_v_c_values);
 
   /* function exit code */
@@ -2456,51 +2456,51 @@ static PyObject *__pyx_pf_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(CYTHON_UNUS
   __pyx_pybuffernd_c_values.rcbuffer = &__pyx_pybuffer_c_values;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_row_idx.diminfo[0].strides = __pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_row_idx.diminfo[0].shape = __pyx_pybuffernd_a_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_column_idx.diminfo[0].strides = __pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_column_idx.diminfo[0].shape = __pyx_pybuffernd_a_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_a_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_a_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_a_values.diminfo[0].strides = __pyx_pybuffernd_a_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_a_values.diminfo[0].shape = __pyx_pybuffernd_a_values.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_row_idx.diminfo[0].strides = __pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_row_idx.diminfo[0].shape = __pyx_pybuffernd_b_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_column_idx.diminfo[0].strides = __pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_column_idx.diminfo[0].shape = __pyx_pybuffernd_b_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_b_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_b_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_b_values.diminfo[0].strides = __pyx_pybuffernd_b_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_b_values.diminfo[0].shape = __pyx_pybuffernd_b_values.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_row_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_row_idx.diminfo[0].strides = __pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_row_idx.diminfo[0].shape = __pyx_pybuffernd_c_row_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_column_idx, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_column_idx.diminfo[0].strides = __pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_column_idx.diminfo[0].shape = __pyx_pybuffernd_c_column_idx.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c_values.rcbuffer->pybuffer, (PyObject*)__pyx_v_c_values, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 30, __pyx_L1_error)
   }
   __pyx_pybuffernd_c_values.diminfo[0].strides = __pyx_pybuffernd_c_values.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c_values.diminfo[0].shape = __pyx_pybuffernd_c_values.rcbuffer->pybuffer.shape[0];
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(__pyx_v_M_row, __pyx_v_N_col, __pyx_v_a_row_idx, __pyx_v_a_column_idx, __pyx_v_a_values, __pyx_v_b_row_idx, __pyx_v_b_column_idx, __pyx_v_b_values, __pyx_v_top_n, __pyx_v_lower_bound, __pyx_v_c_row_idx, __pyx_v_c_column_idx, __pyx_v_c_values, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12cos_sim_topn_12cos_sim_topn_cos_sim_topn(__pyx_v_M_row, __pyx_v_N_col, __pyx_v_a_row_idx, __pyx_v_a_column_idx, __pyx_v_a_values, __pyx_v_b_row_idx, __pyx_v_b_column_idx, __pyx_v_b_values, __pyx_v_top_n, __pyx_v_lower_bound, __pyx_v_c_row_idx, __pyx_v_c_column_idx, __pyx_v_c_values, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
