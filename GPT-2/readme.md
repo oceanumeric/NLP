@@ -23,6 +23,10 @@ Cho, K., Van Merriënboer, B., Bahdanau, D., & Bengio, Y. (2014). On the propert
 
 6892
 
+Ioffe, S., & Szegedy, C. (2015, June). Batch normalization: Accelerating deep network training by reducing internal covariate shift. In International conference on machine learning (pp. 448-456). pmlr.
+
+47399
+
 Oord, A. V. D., Dieleman, S., Zen, H., Simonyan, K., Vinyals, O., Graves, A., ... & Kavukcuoglu, K. (2016). Wavenet: A generative model for raw audio. arXiv preprint arXiv:1609.03499.
 
 5400
