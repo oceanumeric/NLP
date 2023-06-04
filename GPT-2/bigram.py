@@ -5,18 +5,24 @@ import numpy as np
 import math
 import random
 import matplotlib.pyplot as plt
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 # hyperparameters
-batch_size = 32 # how many independent sequences will we process in parallel?
-block_size = 8 # what is the maximum context length for predictions?
+batch_size = 64 # how many independent sequences will we process in parallel?
+block_size = 256 # what is the maximum context length for predictions?
 max_iters = 5000
 eval_interval = 500
-learning_rate = 1e-3
+learning_rate = 3e-4
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 eval_iters = 200
-embedding_dim = 32
+embedding_dim = 384
+num_heads = 6 # how many heads to use in the multi-head attention
+block_layers = 6 # how many transformer blocks to use
+drop_out = 0.2 # dropout rate
+
+
+torch.manual_seed(1337)
+print(f'Using device {device}')
 
 
 
@@ -47,9 +53,6 @@ train_data = text_data[:train_n]
 test_data = text_data[train_n:]
 
 
-torch.manual_seed(1337)
-batch_size = 32
-block_size = 8
 
 def get_batch(split):
     # generate random starting indices for the batch data
@@ -81,6 +84,9 @@ class HeadAttention(nn.Module):
         # create a buffer for the triangular matrix
         self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
 
+        # add dropout
+        self.drop_out = nn.Dropout(drop_out)
+
     def forward(self, x):
         B, T, C = x.shape
         # get the query, key, value matrices
@@ -94,6 +100,8 @@ class HeadAttention(nn.Module):
         scaled_dot_product = scaled_dot_product.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
         # apply softmax
         attention = F.softmax(scaled_dot_product, dim=-1) #(B, T, T)
+        # apply dropout
+        attention = self.drop_out(attention)
         # apply the attention to the value
         # (B, T, T) x (B, T, head_size) = (B, T, head_size)
         out = torch.bmm(attention, v) #(B, T, head_size)
@@ -109,10 +117,53 @@ class MultiHeadAttention(nn.Module):
         super().__init__()
         # create the heads
         self.heads = nn.ModuleList([HeadAttention(head_size) for _ in range(num_heads)])
+        # create the output projection
+        self.proj = nn.Linear(num_heads * head_size, embedding_dim)
+        # add drop out
+        self.drop_out = nn.Dropout(drop_out)
         
     def forward(self, x):
         # concatenate the heads
-        return torch.cat([head(x) for head in self.heads], dim=-1)
+        out = torch.cat([head(x) for head in self.heads], dim=-1)
+        # project the output
+        out = self.proj(out)
+        return out
+    
+
+class FeedForward(nn.Module):
+
+    def __init__(self, embedding_dim):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(embedding_dim, 4 * embedding_dim),
+            nn.ReLU(),
+            nn.Linear(4 * embedding_dim, embedding_dim),  # project back to embedding dim
+            ## add dropout
+            nn.Dropout(drop_out)
+        )
+
+    def forward(self, x):
+        return self.net(x)
+    
+
+class Block(nn.Module):
+    """Transformer block: communication followed by feed-forward"""
+
+    def __init__(self, embedding_dim, num_heads):
+        super().__init__()
+        head_size = embedding_dim // num_heads
+        self.sa = MultiHeadAttention(num_heads, head_size)
+        self.ff = FeedForward(embedding_dim)
+        # add layer normalization
+        self.ln1 = nn.LayerNorm(embedding_dim)
+        self.ln2 = nn.LayerNorm(embedding_dim)
+
+    def forward(self, x):
+        # apply the self-attention
+        x = x + self.sa(self.ln1(x))
+        # apply the feed-forward
+        x = x + self.ff(self.ln2(x))
+        return x
 
 
 
@@ -134,9 +185,11 @@ class BigramLanguageModel(nn.Module):
         # it is a matrix of size block_size x embedding_dim
         # here block size is the number of tokens in the context == 8 
         self.position_embeddings = nn.Embedding(block_size, embedding_dim)
-        # add attention heads 
-        # multi-head attention with 4 heads and each head has embedding_dim//4 size (32//4 = 8)
-        self.sa_heads = MultiHeadAttention(4, embedding_dim//4)  
+        # add blocks - 3 blocks
+        self.blocks = nn.Sequential(
+            *[Block(embedding_dim, num_heads=num_heads) for _ in range(block_layers)],
+            nn.LayerNorm(embedding_dim)
+            )
         self.lm_head = nn.Linear(embedding_dim, vocab_size)
 
     
@@ -154,7 +207,7 @@ class BigramLanguageModel(nn.Module):
         # because the first dimension is 1 and torch will automatically broadcast it
         x = token_embeddings + position_embeddings #(B, T, C)
         # apply the attention heads
-        x = self.sa_head(x) #(B, T, C)
+        x = self.blocks(x) #(B, T, C)
         logits = self.lm_head(x) #(B, T, vocab_size)
 
         if target is None:
@@ -243,7 +296,7 @@ print(loss.item())
     
 # generate some text
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
-foo = m1.generate(context, max_new_tokens=100)
+foo = m1.generate(context, max_new_tokens=276)
 print(decode(foo[0].tolist()))
 
 

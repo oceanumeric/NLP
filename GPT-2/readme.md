@@ -34,3 +34,53 @@ Oord, A. V. D., Dieleman, S., Zen, H., Simonyan, K., Vinyals, O., Graves, A., ..
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. Advances in neural information processing systems, 30.
 
 76820
+
+
+rambling: 
+
+--- basic model
+
+iteration 4500, train loss 2.2300, test loss 2.2466
+
+Wife?
+Whord
+Thow aff is and the aceet bobe toe.
+Sthr-and thalllands:
+Waith foulqoutht. War dilthoate
+
+
+--- residual net + block 
+
+iteration 4500, train loss 1.9992, test loss 2.1048
+
+And they bridcewill, is by be madisel bube a enavegry'd the gatanse:
+Warthat us him to barddels
+Hay,
+
+--- layernorm
+
+iteration 4500, train loss 1.9911, test loss 2.0899
+
+And they bridce.
+
+STAULOLUS:
+KING Proke? you eyanthrud my dagatands:
+Warthis us combe. Warderlascane
+
+
+--- full techniques (drop out + residual + layer norm + attention)
+
+iteration 4500, train loss 0.6588, test loss 1.7911
+
+
+And Lewis  here.
+
+KING EDWARD IV:
+Then but false, trumps them back to your fathers,
+For Warwick, Harrarand rose again a world,
+And in the srift command, but from my sheat,
+I will not dream of the world's thought,
+But be revenged, which, without die condemn'd.
+
+Messenger:
+My l
