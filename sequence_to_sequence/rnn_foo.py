@@ -114,7 +114,7 @@ class SimpleRNN(nn.Module):
         # x.shape = (batch_size, seq_size, vocab_size)
 
         # loop through the sequence
-        for t in range(self.seq_size):
+        for t in range(x_one_hot.shape[1]):
             # get the current input
             x_t = x_one_hot[:, t, :]
             # x_t.shape = (batch_size, vocab_size)
@@ -278,9 +278,61 @@ class SimpleRNN(nn.Module):
 
     # function to predict the next character
     def predict(self, char, h=None, top_k=None):
-        pass # TODO
+        
+        # convert the character to integer
+        char = torch.tensor([[self.char_to_int[char]]])
+        # push the character to the GPU
+        char = char.to(device)
+        # reshape char as (1, 1)
+        char = char.reshape(1, 1)
+   
+        # initialize the hidden state
+        if h is None:
+            # h.shape = (1, hidden_size)
+            # because we only have one character
+            h = torch.zeros((1, self.hidden_size))
+        
+        # push the hidden state to the GPU
+        h = h.to(device)
 
+        # forward pass with no gradient tracking
+        with torch.no_grad():
+            # get the output and hidden state
+            output, h = self.forward(char, h)
+            # output.shape = (1, vocab_size)
 
+        # get the probabilities
+        # dim=1 because we want to get the probabilities for each character
+        p = F.softmax(output, dim=1).data
+        # reshape p as (vocab_size)
+        p = p.reshape(self.vocab_size)
+        # sample with torch.multinomial
+        char_next_idx = torch.multinomial(p, num_samples=1)
+        # char_next_idx.shape = (1, 1)
+        # convert the index to character
+        char_next = self.int_to_char.get(char_next_idx.item())
+
+        return char_next, h
+    
+    # function to generate text
+    def generate_text(self, char="a", h=None, length=100):
+
+        # intialize the hidden state
+        if h is None:
+            h = torch.zeros((1, self.hidden_size))
+        # push the hidden state to the GPU
+        h = h.to(device)
+        
+        # initialize the generated text
+        gen_text = char
+
+        # predict the next character until we get the desired length
+        for i in range(length):
+            char, h = self.predict(char, h)
+            gen_text += char
+
+        return gen_text
+        
 
 if __name__ == "__main__":
     print("Hello World!")
@@ -290,18 +342,21 @@ if __name__ == "__main__":
     # define the hyperparameters
     seq_length = 100
     batch_size = 128
-    hidden_size = 256
-    epochs = 50
+    hidden_size = 256  # or 512
+    epochs = 100
     learning_rate = 0.001
 
     # create the model
     model = SimpleRNN(seq_length, batch_size, hidden_size)
 
-    # push the model to the GPU
+    # # push the model to the GPU
     model.to(device)
 
-    # train the model
+    # # train the model
     loss_list = model.train(epochs, learning_rate)
+
+    # generate text
+    print(model.generate_text(char="a", length=100))
 
  
 # %%
