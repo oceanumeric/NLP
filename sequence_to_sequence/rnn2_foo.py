@@ -15,24 +15,59 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 
+# function for setting seed
+def set_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+
+
+# set up seed globally and deterministically
+set_seed(666)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+# set up device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+# %%
+import os
+import math
+import time
+import numpy as np
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+
+
 ### --------- environment setup --------- ###
 # set up the data path
 # DATA_PATH = "../data"
 
 
 # function for setting seed
-# def set_seed(seed):
-#     np.random.seed(seed)
-#     torch.manual_seed(seed)
-#     if torch.cuda.is_available():
-#         torch.cuda.manual_seed(seed)
-#         torch.cuda.manual_seed_all(seed)
+def set_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
 
-# # set up seed globally and deterministically
-# set_seed(76)
-# torch.backends.cudnn.deterministic = True
-# torch.backends.cudnn.benchmark = False
+# set up seed globally and deterministically
+set_seed(76)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 # set up device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -69,32 +104,14 @@ class SimpleRNN(nn.Module):
         # we will not use embedding layer
         # as we will use one-hot encoding
 
-        # initialize the parameters
         # the first layer is a simple RNN layer
-        # h_t = tanh(W_hh * h_{t-1} + W_xh * x_t)
-        self.W_xh = nn.Parameter(
-            torch.randn(self.vocab_size, hidden_size, device=device)
-        )
-        self.W_hh = nn.Parameter(
-            torch.randn(hidden_size, hidden_size, device=device)
-        )
-        self.b_h = nn.Parameter(
-            torch.zeros(hidden_size, device=device)
-        )
-
-        # we could initialize the parameters with xavier initialization
-        # in this case xavier is better than kaiming
-        nn.init.xavier_normal_(self.W_xh)
-        nn.init.xavier_normal_(self.W_hh)
-        # nn.init.xavier_normal_(self.b_h)
-
+        self.rnn_layer = nn.RNN(self.vocab_size, self.hidden_size, batch_first=True)
         # the second layer is a fully connected layer
         # y_t = W_hy * h_t
         # we will use Linear layer
         # but we will add a dropout layer before the Linear layer
         self.dropout_layer = nn.Dropout(drop_prob)
         self.linear_layer = nn.Linear(hidden_size, self.vocab_size)
-
 
     def forward(self, x, h):
         """
@@ -113,32 +130,7 @@ class SimpleRNN(nn.Module):
         x_one_hot = F.one_hot(x, self.vocab_size).float()
         # x.shape = (batch_size, seq_size, vocab_size)
 
-        # loop through the sequence
-        for t in range(x_one_hot.shape[1]):
-            # get the current input
-            x_t = x_one_hot[:, t, :]
-            # x_t.shape = (batch_size, vocab_size)
-
-            # calculate the hidden state
-            h = torch.tanh(x_t @ self.W_xh + h @ self.W_hh + self.b_h)
-            # h.shape = (batch_size, hidden_size)
-
-            # add dropout, drop out should be applied to the hidden state only
-            # h = self.dropout_layer(h)
-
-            # calculate the output
-            # this method is slower
-            # y = self.linear_layer(h)
-
-            # append the output
-            hidden_output.append(h)
-
-        # stack the output, dim=1 means we stack along the seq_size
-        # output = torch.stack(output, dim=1)
-        # output.shape = (batch_size, seq_size, vocab_size)
-        # now stack the hidden_output along the seq_size
-        hidden_output = torch.stack(hidden_output, dim=1)
-        # hidden_output.shape = (batch_size, seq_size, hidden_size)
+        hidden_output, h = self.rnn_layer(x_one_hot, h)
 
         # drop out should be applied to the hidden state only
         hidden_output = self.dropout_layer(hidden_output)
@@ -158,14 +150,11 @@ class SimpleRNN(nn.Module):
         initialize the hidden state with next because we will use it 
         in the next iteration
         """
-        return torch.zeros(batch_size, self.hidden_size)
+        return torch.zeros(1, batch_size, self.hidden_size)
 
     def train_model(self, n_epochs, lr=0.001):
         # initialize the optimizer
         optimizer = torch.optim.Adam(self.parameters(), lr=lr)
-
-        # initialize the loss function
-        loss_fn = nn.CrossEntropyLoss()
 
         # initialize the loss list
         self.loss_list = []
@@ -184,7 +173,7 @@ class SimpleRNN(nn.Module):
                 # x will ben encoded as one-hot in the forward pass
 
                 # zero the gradients
-                self.zero_grad()
+                optimizer.zero_grad()
 
                 # forward pass
                 output, h = self.forward(x, h)
@@ -192,6 +181,7 @@ class SimpleRNN(nn.Module):
                 # h.shape = (batch_size, hidden_size)
                 # h will be used as the hidden state for the next batch
                 # so we need to detach it from the graph after each batch
+                h = h.detach()
 
                 # calculate the loss
                 # the loss works like this way in pytorch
@@ -202,15 +192,15 @@ class SimpleRNN(nn.Module):
                 # output.shape = (batch_size * seq_size, vocab_size)
                 output = output.reshape(-1, self.vocab_size)
                 # y.shape = (batch_size * seq_size)
-                y = y.reshape(self.batch_size*self.seq_size).long().to(device)
+                y = y.reshape(-1)
                 # calculate the loss
-                loss = loss_fn(output, y)
+                loss = F.cross_entropy(output, y)
 
                 # retain the graph if you want to use it later
                 # loss.retain_grad()
 
                 # backward pass
-                loss.backward(retain_graph=True)
+                loss.backward()
 
                 # clip the gradients
                 # this is very important !!!
@@ -249,16 +239,13 @@ class SimpleRNN(nn.Module):
         # we need to convert the text into numbers
 
         # get all the unique characters
-        self.chars = list(set(self.text))
+        self.chars = sorted(set(self.text))
         self.vocab_size = len(self.chars)
         print("Vocabulary size: {}".format(self.vocab_size))
 
         # create a dictionary to map the characters to integers and vice versa
         self.char_to_int = {ch: i for i, ch in enumerate(self.chars)}
         self.int_to_char = {i: ch for i, ch in enumerate(self.chars)}
-
-        # print the dictionaries
-        print(self.char_to_int)
 
         # encode the text, torch.long is int64
         self.encoded = torch.tensor(
@@ -295,16 +282,16 @@ class SimpleRNN(nn.Module):
             yyield = yyield.to(device)
             yield xyield, yyield
 
-
     # function to predict the next character based on character
     def predict(self, char, h=None, top_k=None):
-        # assume char is a single character
+        # change it to sequence
+        char_seq = [self.char_to_int[c] for c in char]
         # convert the character to integer
-        char = torch.tensor([[self.char_to_int[char]]])
+        char = torch.tensor(char_seq, dtype=torch.long)
         # push the character to the GPU
         char = char.to(device)
-        # reshape char as (1, 1)
-        char = char.reshape(1, 1)
+        # reshape char as (1, seq_size)
+        char = char.reshape(1, -1)
 
         # initialize the hidden state
         if h is None:
@@ -320,59 +307,102 @@ class SimpleRNN(nn.Module):
             # get the output and hidden state
             output, h = self(char, h)
             # output.shape = (1, vocab_size)
+            p = F.softmax(output, dim=1).data.cpu()
+            # get the top characters with highest likelihood
+            p, top_ch = p.topk(top_k)
+            top_ch = top_ch.numpy().squeeze()
 
-        # get the probabilities
-        # dim=1 because we want to get the probabilities for each character
-        p = F.softmax(output, dim=1).data
+            # select the likely next character with some element of randomness
+            # for more variability
+            p = p.numpy().squeeze()
+            char_next = np.random.choice(top_ch, p=p / p.sum())
 
-        # if top_k is None, we will use torch.multinomial to sample
-        # otherwise, we will use torch.topk to get the top k characters
-        if top_k is None:
-            # reshape p as (vocab_size)
-            p = p.reshape(self.vocab_size)
-            # sample with torch.multinomial
-            char_next_idx = torch.multinomial(p, num_samples=1)
-            # char_next_idx.shape = (1, 1)
-            # convert the index to character
-            char_next = self.int_to_char.get(char_next_idx.item())
-        else:
-            p, char_next_idx = p.topk(top_k)
-            # char_next_idx.shape = (1, top_k)
-            # convert the index to character
-            char_next_idx = char_next_idx.squeeze().cpu().numpy()
-            # char_next_idx.shape = (top_k)
-            # randomly select one character from the top k characters
-            p = p.squeeze().cpu().numpy()
-            # p.shape = (top_k)
-            char_next_idx = np.random.choice(char_next_idx, p=p / p.sum())
-            # char_next_idx.shape = (1)
-            # convert the index to character
-            char_next = self.int_to_char.get(char_next_idx.item())
+            char_next = self.int_to_char[char_next]
 
         return char_next, h
 
     # function to generate text
     def generate_text(self, char="a", h=None, length=100, top_k=None):
-        # intialize the hidden state
-        if h is None:
-            h = torch.zeros((1, self.hidden_size))
-        # push the hidden state to the GPU
+
+        # change to evaluation mode
+        self.eval()
+        # call the predict function to get the next character
+        chars = [ch for ch in char]
+
+        with torch.no_grad():
+            if h is None:
+                h = self.init_hidden(1)
+    
+            for ch in chars:
+                char, h = self.predict(ch, h, top_k=top_k)
+            
+            chars.append(char)
+
+            for ii in range(length):
+                char, h = self.predict(chars[-1], h, top_k=top_k)
+                chars.append(char)
+
+        return "".join(chars)
+
+
+def predict(model, char, device, h=None, top_k=5):
+        ''' Given a character & hidden state, predict the next character.
+            Returns the predicted character and the hidden state.
+        '''
+        
+        # tensor inputs
+        x = torch.tensor([[model.char_to_int[char]]]).to(device)
+        # put into tensor
+        
+        with torch.no_grad():
+            # get the output of the model
+            out, h = model(x, h)
+
+            # get the character probabilities
+            # move to cpu for further processing with numpy etc. 
+            p = F.softmax(out, dim=1).data.cpu()
+
+            # get the top characters with highest likelihood
+            p, top_ch = p.topk(top_k)
+            top_ch = top_ch.numpy().squeeze()
+
+            # select the likely next character with some element of randomness
+            # for more variability
+            p = p.numpy().squeeze()
+            char = np.random.choice(top_ch, p=p/p.sum())
+        
+        # return the encoded value of the predicted char and the hidden state
+        return model.int_to_char[char], h
+
+
+def sample(model, size, device, prime='A', top_k=None):
+    # method to generate new text based on a "prime"/initial sequence. 
+    # Basically, the outer loop convenience function that calls the above
+    # defined predict method. 
+    model.eval() # eval mode
+    
+    # Calculate model for the initial prime characters
+    chars = [ch for ch in prime]
+    with torch.no_grad():
+        # initialize hidden with 0 in the beginning. Set our batch size to 1 
+        # as we wish to generate one sequence only. 
+        h = model.init_hidden(batch_size=1)
+        # put hidden state on GPU
         h = h.to(device)
+        for ch in prime:
+            char, h = predict(model, ch, device, h=h, top_k=top_k)
 
-        # initialize the generated text
-        gen_text = char
+        # append the characters to the sequence
+        chars.append(char)
 
-        # predict the next character until we get the desired length
-        # we are not feedding the whole sequence to the model
-        # but we are feeding the output of the previous character to the model
-        # because the the memory was saved in the hidden state
-        for i in range(length):
-            char, h = self.predict(char, h, top_k)
-            gen_text += char
+        # Now pass in the previous/last character and get a new one
+        # Repeat this process for the desired length of the sequence to be 
+        # generated
+        for ii in range(size):
+            char, h = predict(model, chars[-1], device, h=h, top_k=top_k)
+            chars.append(char)
 
-        return gen_text
-
-
+    return ''.join(chars)
 # debug process:
 # 1. check the shape of all inputs and outputs
 # 2. change the weight initialization to xavier_uniform
@@ -411,13 +441,14 @@ if __name__ == "__main__":
 
     # # push the model to the GPU
     model.to(device)
+    model.train()
 
     # # train the model
-    model.train()
     loss_list = model.train_model(epochs, learning_rate)
 
-    # generate text
-    print(model.generate_text(char="H", length=100, top_k=5))
+    # # generate text
+    # print(model.generate_text(char="A", length=100, top_k=5))
+    print(sample(model, 1000, device, prime='A', top_k=5))
 
 
 # %%
