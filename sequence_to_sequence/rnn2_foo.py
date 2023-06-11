@@ -147,7 +147,7 @@ class SimpleRNN(nn.Module):
 
     def init_hidden(self, batch_size):
         """
-        initialize the hidden state with next because we will use it 
+        initialize the hidden state with next because we will use it
         in the next iteration
         """
         return torch.zeros(1, batch_size, self.hidden_size)
@@ -258,12 +258,11 @@ class SimpleRNN(nn.Module):
         print(self.encoded[:100])
 
     def create_batches(self, batch_size, seq_length):
-
         num_batches = len(self.encoded) // (batch_size * seq_length)
 
         # clip the data to get rid of the remainder
         xdata = self.encoded[: num_batches * batch_size * seq_length]
-        ydata =  torch.roll(xdata, -1)
+        ydata = torch.roll(xdata, -1)
 
         # reshape the data
         # this step is very important, because we need to make sure
@@ -323,7 +322,6 @@ class SimpleRNN(nn.Module):
 
     # function to generate text
     def generate_text(self, char="a", h=None, length=100, top_k=None):
-
         # change to evaluation mode
         self.eval()
         # call the predict function to get the next character
@@ -332,10 +330,10 @@ class SimpleRNN(nn.Module):
         with torch.no_grad():
             if h is None:
                 h = self.init_hidden(1)
-    
+
             for ch in chars:
                 char, h = self.predict(ch, h, top_k=top_k)
-            
+
             chars.append(char)
 
             for ii in range(length):
@@ -346,46 +344,46 @@ class SimpleRNN(nn.Module):
 
 
 def predict(model, char, device, h=None, top_k=5):
-        ''' Given a character & hidden state, predict the next character.
-            Returns the predicted character and the hidden state.
-        '''
-        
-        # tensor inputs
-        x = torch.tensor([[model.char_to_int[char]]]).to(device)
-        # put into tensor
-        
-        with torch.no_grad():
-            # get the output of the model
-            out, h = model(x, h)
+    """Given a character & hidden state, predict the next character.
+    Returns the predicted character and the hidden state.
+    """
 
-            # get the character probabilities
-            # move to cpu for further processing with numpy etc. 
-            p = F.softmax(out, dim=1).data.cpu()
+    # tensor inputs
+    x = torch.tensor([[model.char_to_int[char]]]).to(device)
+    # put into tensor
 
-            # get the top characters with highest likelihood
-            p, top_ch = p.topk(top_k)
-            top_ch = top_ch.numpy().squeeze()
+    with torch.no_grad():
+        # get the output of the model
+        out, h = model(x, h)
 
-            # select the likely next character with some element of randomness
-            # for more variability
-            p = p.numpy().squeeze()
-            char = np.random.choice(top_ch, p=p/p.sum())
-        
-        # return the encoded value of the predicted char and the hidden state
-        return model.int_to_char[char], h
+        # get the character probabilities
+        # move to cpu for further processing with numpy etc.
+        p = F.softmax(out, dim=1).data.cpu()
+
+        # get the top characters with highest likelihood
+        p, top_ch = p.topk(top_k)
+        top_ch = top_ch.numpy().squeeze()
+
+        # select the likely next character with some element of randomness
+        # for more variability
+        p = p.numpy().squeeze()
+        char = np.random.choice(top_ch, p=p / p.sum())
+
+    # return the encoded value of the predicted char and the hidden state
+    return model.int_to_char[char], h
 
 
-def sample(model, size, device, prime='A', top_k=None):
-    # method to generate new text based on a "prime"/initial sequence. 
+def sample(model, size, device, prime="A", top_k=None):
+    # method to generate new text based on a "prime"/initial sequence.
     # Basically, the outer loop convenience function that calls the above
-    # defined predict method. 
-    model.eval() # eval mode
-    
+    # defined predict method.
+    model.eval()  # eval mode
+
     # Calculate model for the initial prime characters
     chars = [ch for ch in prime]
     with torch.no_grad():
-        # initialize hidden with 0 in the beginning. Set our batch size to 1 
-        # as we wish to generate one sequence only. 
+        # initialize hidden with 0 in the beginning. Set our batch size to 1
+        # as we wish to generate one sequence only.
         h = model.init_hidden(batch_size=1)
         # put hidden state on GPU
         h = h.to(device)
@@ -396,13 +394,15 @@ def sample(model, size, device, prime='A', top_k=None):
         chars.append(char)
 
         # Now pass in the previous/last character and get a new one
-        # Repeat this process for the desired length of the sequence to be 
+        # Repeat this process for the desired length of the sequence to be
         # generated
         for ii in range(size):
             char, h = predict(model, chars[-1], device, h=h, top_k=top_k)
             chars.append(char)
 
-    return ''.join(chars)
+    return "".join(chars)
+
+
 # debug process:
 # 1. check the shape of all inputs and outputs
 # 2. change the weight initialization to xavier_uniform
@@ -420,7 +420,7 @@ if __name__ == "__main__":
 
     # define the hyperparameters
     seq_length = 100
-    batch_size = 128   # 512
+    batch_size = 128  # 512
     hidden_size = 512  # or 256
     epochs = 100
     learning_rate = 0.001
@@ -429,7 +429,7 @@ if __name__ == "__main__":
     # hidden_size means the number of hidden units in the RNN cell
     # if batch_size * hidden_size is very large, then each forward pass will take a long time
 
-    text_file = "data/sonnets.txt" 
+    text_file = "data/sonnets.txt"
 
     # create the model
     model = SimpleRNN(text_file, seq_length, batch_size, hidden_size)
@@ -448,7 +448,7 @@ if __name__ == "__main__":
 
     # # generate text
     # print(model.generate_text(char="A", length=100, top_k=5))
-    print(sample(model, 1000, device, prime='A', top_k=5))
+    print(sample(model, 1000, device, prime="A", top_k=5))
 
 
 # %%

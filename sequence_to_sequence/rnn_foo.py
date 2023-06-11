@@ -75,12 +75,8 @@ class SimpleRNN(nn.Module):
         self.W_xh = nn.Parameter(
             torch.randn(self.vocab_size, hidden_size, device=device)
         )
-        self.W_hh = nn.Parameter(
-            torch.randn(hidden_size, hidden_size, device=device)
-        )
-        self.b_h = nn.Parameter(
-            torch.zeros(hidden_size, device=device)
-        )
+        self.W_hh = nn.Parameter(torch.randn(hidden_size, hidden_size, device=device))
+        self.b_h = nn.Parameter(torch.zeros(hidden_size, device=device))
 
         # we could initialize the parameters with xavier initialization
         # in this case xavier is better than kaiming
@@ -94,7 +90,6 @@ class SimpleRNN(nn.Module):
         # but we will add a dropout layer before the Linear layer
         self.dropout_layer = nn.Dropout(drop_prob)
         self.linear_layer = nn.Linear(hidden_size, self.vocab_size)
-
 
     def forward(self, x, h):
         """
@@ -155,7 +150,7 @@ class SimpleRNN(nn.Module):
 
     def init_hidden(self, batch_size):
         """
-        initialize the hidden state with next because we will use it 
+        initialize the hidden state with next because we will use it
         in the next iteration
         """
         return torch.zeros(batch_size, self.hidden_size)
@@ -202,7 +197,7 @@ class SimpleRNN(nn.Module):
                 # output.shape = (batch_size * seq_size, vocab_size)
                 output = output.reshape(-1, self.vocab_size)
                 # y.shape = (batch_size * seq_size)
-                y = y.reshape(self.batch_size*self.seq_size).long().to(device)
+                y = y.reshape(self.batch_size * self.seq_size).long().to(device)
                 # calculate the loss
                 loss = loss_fn(output, y)
 
@@ -271,12 +266,11 @@ class SimpleRNN(nn.Module):
         print(self.encoded[:100])
 
     def create_batches(self, batch_size, seq_length):
-
         num_batches = len(self.encoded) // (batch_size * seq_length)
 
         # clip the data to get rid of the remainder
         xdata = self.encoded[: num_batches * batch_size * seq_length]
-        ydata =  torch.roll(xdata, -1)
+        ydata = torch.roll(xdata, -1)
 
         # reshape the data
         # this step is very important, because we need to make sure
@@ -294,7 +288,6 @@ class SimpleRNN(nn.Module):
             xyield = xyield.to(device)
             yyield = yyield.to(device)
             yield xyield, yyield
-
 
     # function to predict the next character based on character
     def predict(self, char, h=None, top_k=None):
@@ -390,7 +383,7 @@ if __name__ == "__main__":
 
     # define the hyperparameters
     seq_length = 100
-    batch_size = 128   # 512
+    batch_size = 128  # 512
     hidden_size = 512  # or 256
     epochs = 100
     learning_rate = 0.001
@@ -399,7 +392,7 @@ if __name__ == "__main__":
     # hidden_size means the number of hidden units in the RNN cell
     # if batch_size * hidden_size is very large, then each forward pass will take a long time
 
-    text_file = "data/sonnets.txt" 
+    text_file = "data/sonnets.txt"
 
     # create the model
     model = SimpleRNN(text_file, seq_length, batch_size, hidden_size)
