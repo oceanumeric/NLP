@@ -138,15 +138,9 @@ class LSTM(nn.Module):
             # append the hidden state and cell state to the list
             # h, c.shape = (batch_size, hidden_size)
             # we need to add a new dimension to the tensor
-            if seq_length == 1:
-                print(o_t.shape)
             outputs.append(o_t.unsqueeze(1))
             hidden_states.append(h.unsqueeze(1))
             cell_states.append(c.unsqueeze(1))
-
-        if seq_length == 1:
-            print(len(outputs))
-            print(outputs[0].shape)
 
         # now combine all the hidden states and cell states and make it
         # having shape = (batch_size, seq_length, hidden_size)
@@ -355,7 +349,7 @@ if __name__ == "__main__":
     batch_size = 128
     seq_length = 100
     hidden_size = 512
-    epoches = 5
+    epoches = 300
     learning_rate = 0.001
 
     lstm = LSTM(data_path, batch_size, seq_length, hidden_size)
@@ -370,6 +364,6 @@ if __name__ == "__main__":
     losses = lstm.train_model(epoches, learning_rate)
 
     # generate some text
-    print(lstm.sample(prime_char="M", length=100))
+    print(lstm.sample(prime_char="M", length=500, top_k=5))
 
 # %%
