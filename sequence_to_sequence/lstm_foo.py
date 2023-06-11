@@ -18,6 +18,17 @@ from tqdm import tqdm
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+def set_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        
+# set up seed globally and deterministically
+set_seed(76)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 # parameters are based on this: https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html?highlight=lstms
 
@@ -221,6 +232,11 @@ class LSTM(nn.Module):
             if (epoch + 1) % 10 == 0:
                 print("Epoch: {}, Loss: {:.4f}".format(epoch, losses[-1]))
 
+            # add early stopping
+            if losses[-1] < 0.05:
+                print("Loss is too low, stopping the training")
+                break
+
         return losses
 
     def load_data(self, data_path):
@@ -349,7 +365,7 @@ if __name__ == "__main__":
     batch_size = 128
     seq_length = 100
     hidden_size = 512
-    epoches = 300
+    epoches = 600  # 600 is enough
     learning_rate = 0.001
 
     lstm = LSTM(data_path, batch_size, seq_length, hidden_size)

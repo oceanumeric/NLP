@@ -19,6 +19,19 @@ from tqdm import tqdm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
+def set_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        
+# set up seed globally and deterministically
+set_seed(76)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+
 ### --------- define our class module --------- ###
 class SimpleRNN(nn.Module):
     def __init__(self, data_path, batch_size, seq_length, hidden_size, drop_prob=0.5):
