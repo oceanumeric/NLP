@@ -92,3 +92,8 @@ hw_df %>%
     as.data.table() %>%
     # convert the date to a date object with as.POSIXct
     .[, publnDate := as.POSIXct(publnDate)] %>% str()
+
+
+# @ai
+# need to design query that can return the results within a certain time frame
+# otherwise, the query will return 'timeout' error
