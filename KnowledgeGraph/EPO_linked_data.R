@@ -59,3 +59,36 @@ df <- qd$results
 df %>%
     as.data.table() %>%
     peep_head()
+
+
+# ------------------------------------------------------------------------------
+# an applicant's publication -- HUAWEI
+query <- "
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#> 
+PREFIX patent: <http://data.epo.org/linked-data/def/patent/>
+
+SELECT * 
+WHERE {
+    ?publn rdf:type patent:Publication;
+           patent:applicantVC ?applicant;
+           patent:publicationAuthority ?auth;
+           patent:publicationNumber ?publnNum;
+           patent:publicationKind ?kind;
+           patent:publicationDate ?publnDate.
+    ?applicant vcard:fn ?name.
+    FILTER regex(?name, 'HUAWEI', 'i')
+    FILTER (?publnDate >= xsd:date('2019-01-01'))
+}
+LIMIT 3000
+"
+
+hw_query <- SPARQL(endpoint, query, curl_args=list(useragent=R.version.string))
+hw_df <- hw_query$results
+
+hw_df %>%
+    as.data.table() %>%
+    # convert the date to a date object with as.POSIXct
+    .[, publnDate := as.POSIXct(publnDate)] %>% str()
