@@ -81,6 +81,7 @@ WHERE {
     ?applicant vcard:fn ?name.
     FILTER regex(?name, 'HUAWEI', 'i')
     FILTER (?publnDate >= xsd:date('2019-01-01'))
+    FILTER (?publnDate <= xsd:date('2020-01-01'))
 }
 LIMIT 3000
 "
@@ -91,9 +92,39 @@ hw_df <- hw_query$results
 hw_df %>%
     as.data.table() %>%
     # convert the date to a date object with as.POSIXct
-    .[, publnDate := as.POSIXct(publnDate)] %>% str()
+    .[, publnDate := as.POSIXct(publnDate)] %>%
+    .[order(publnDate)] %>%
+    peep_head()
 
 
 # @ai
 # need to design query that can return the results within a certain time frame
 # otherwise, the query will return 'timeout' error
+
+# ------------------------------------------------------------------------------
+# hierachical parents of a CPC symbol
+query <- "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix cpc: <http://data.epo.org/linked-data/def/cpc/>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?broaderCPC ?title
+WHERE {
+    ?CPC rdf:type/rdfs:subClassOf cpc:Classification.
+    ?CPC rdfs:label 'A44B 11/2523'.  # Note the single space between
+                                    # subclass A44B and main group 11/2523
+    ?CPC skos:broader* ?broaderCPC.
+    ?broaderCPC dcterms:title ?title
+}
+ORDER BY ASC(?broaderCPC)
+LIMIT 20
+"
+
+cpc_query <- SPARQL(endpoint, query, curl_args=list(useragent=R.version.string))
+cpc_df <- cpc_query$results
+
+cpc_df %>%
+    as.data.table() %>%
+    peep_head()
